@@ -1,4 +1,4 @@
-export function getAppointmentsForDay(state, day) {
+export default function getAppointmentsForDay(state, day) {
   //console.log("STATE", state);
   const target = day;
   let resultDay = state.days.filter((days) => days.name === target);
@@ -26,6 +26,6 @@ export function getAppointmentsForDay(state, day) {
     //console.log(app)
     return app;
   }
-
+  //console.log("FAIL :(")
   return [];
 }
