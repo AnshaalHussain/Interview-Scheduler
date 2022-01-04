@@ -3,6 +3,7 @@ import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import Form from "./Form";
+import Confirm from "./Confirm";
 
 import useVisualMode from "hooks/useVisualMode";
 
@@ -13,6 +14,7 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
+const CONFIRM_DELETE = "CONFIRM_DELETE";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -26,8 +28,13 @@ export default function Appointment(props) {
     };
     transition(SAVING);
     //console.log("mode", mode)
-    props.bookInterview(props.id, interview);
-    transition(SHOW);
+    props.bookInterview(props.id, interview)
+      .then((response) => {
+        transition(SHOW);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function cancel(name, interviewer) {
@@ -35,10 +42,16 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-    props.cancelInterview(props.id, interview);
-
+    transition(DELETING)
+    props.cancelInterview(props.id, interview)
+      .then((res) => {
+        transition(EMPTY);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-
+  console.log("MODE", mode)
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -47,16 +60,16 @@ export default function Appointment(props) {
         <Show
           student={props.interview && props.interview.student}
           interviewer={props.interview && props.interview.interviewer}
-          onDelete={cancel}
+          onDelete={() => transition(CONFIRM_DELETE)}
         />
       )}
-      {mode === SAVING && (
-        <Status message={"saving"}/>
-      )}
+      {mode === SAVING && <Status message={"Saving"} />}
+      {mode === DELETING && <Status message={"Deleting"} />}
       {mode === CREATE && (
         <Form onCancel={back} save={save} interviewers={props.interviewers} />
       )}
-      
+      {mode === CONFIRM_DELETE && <Confirm message={"Delete this appointment?"} onCancel={() => back()} onConfirm={() => cancel(props.student, props.interviewer)} />}
+
       {/* {props.interview ? useVisualMode(SHOW) : useVisualMode(EMPTY)} */}
 
       {/* {props.interview ? (

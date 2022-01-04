@@ -36,25 +36,26 @@ export default function Application(props) {
       [id]: appointment,
     };
 
-    axios
+    return axios
       .put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then((response) => setState((prev) => ({ ...prev, appointments })));
   }
 
   const cancelInterview = (id, interview) => {
+    console.log("cancel interview", id, interview)
     const appointment = {
       ...state.appointments[id],
       interview: null,
     };
-    
+
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
 
-    console.log("CANCEL", interview)
-    axios
-      .put(`http://localhost:8001/api/appointments/${id}`, null)
+    console.log("CANCEL", appointments);
+    return axios
+      .delete(`http://localhost:8001/api/appointments/${id}`)
       .then((response) => setState((prev) => ({ ...prev, appointments })));
   };
 
