@@ -5,7 +5,11 @@ import axios from "axios";
 
 import "components/Application.scss";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from "./helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "./helpers/selectors";
 
 export default function Application(props) {
   // const [day, setDay] = useState("Monday");
@@ -20,7 +24,39 @@ export default function Application(props) {
 
   //setState({ ...state, day: "Tuesday" });
 
-  const setDay = (day) => setState({ ...state, day });
+  const setDay = (day) => setState((prev) => ({ ...prev, day }));
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    axios
+      .put(`http://localhost:8001/api/appointments/${id}`, { interview })
+      .then((response) => setState((prev) => ({ ...prev, appointments })));
+  }
+
+  const cancelInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    console.log("CANCEL", interview)
+    axios
+      .put(`http://localhost:8001/api/appointments/${id}`, null)
+      .then((response) => setState((prev) => ({ ...prev, appointments })));
+  };
 
   // const setDays = (days) => setState((prev) => ({ ...prev, days }));
 
@@ -30,8 +66,7 @@ export default function Application(props) {
       axios.get("http://localhost:8001/api/appointments"),
       axios.get("http://localhost:8001/api/interviewers"),
     ]).then((all) => {
-      //console.log(all[0].data)
-      //console.log(all[2].data);
+      console.log("ALL", all);
       setState((prev) => ({
         ...prev,
         days: all[0].data,
@@ -40,16 +75,23 @@ export default function Application(props) {
       }));
     });
   }, []);
-  //console.log(state.interviewers);
-  //console.log(state)
+
   let dailyAppointments = getAppointmentsForDay(state, state.day);
-  //console.log(dailyAppointments)
+
   const newArray = dailyAppointments.map((data) => {
     const interview = getInterview(state, data.interview);
-    console.log(interview);
+
+    let dailyInterviewers = getInterviewersForDay(state, state.day);
 
     return (
-    <Appointment key={data.id} interview={interview} {...data} />
+      <Appointment
+        key={data.id}
+        {...data}
+        interview={interview}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
+        interviewers={dailyInterviewers}
+      />
     );
   });
 

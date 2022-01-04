@@ -1,14 +1,12 @@
 export function getAppointmentsForDay(state, day) {
-  //console.log("STATE", state);
   const target = day;
   let resultDay = state.days.filter((days) => days.name === target);
   resultDay = resultDay[0];
-  //console.log("result", resultDay)
+
   if (resultDay) {
     const appointArray = [];
-    //console.log(resultDay.appointments)
+
     for (let item in state.appointments) {
-      //console.log("APPOINT", state.appointments[item])
       appointArray.push(state.appointments[item]);
     }
 
@@ -21,24 +19,51 @@ export function getAppointmentsForDay(state, day) {
       return false;
     };
 
-    //console.log(appointArray);
     const app = appointArray.filter(filterAppoint);
-    //console.log(app)
+
     return app;
   }
-  //console.log("FAIL :(")
+
+  return [];
+}
+export function getInterviewersForDay(state, day) {
+  const target = day;
+  let resultDay = state.days.filter((days) => days.name === target);
+  resultDay = resultDay[0];
+
+  if (resultDay) {
+    const interviewArray = [];
+
+    for (let item in state.interviewers) {
+      interviewArray.push(state.interviewers[item]);
+    }
+
+    const filterAppoint = (num) => {
+      for (let item in resultDay.interviewers) {
+        if (num.id === resultDay.interviewers[item]) {
+          return resultDay.interviewers[item];
+        }
+      }
+      return false;
+    };
+
+    const app = interviewArray.filter(filterAppoint);
+
+    return app;
+  }
+
   return [];
 }
 
 export function getInterview(state, interview) {
-  
-  if(interview) {
+  let newInterview = {};
+  if (interview) {
     const interviewId = interview.interviewer;
     const interviewerInfo = state.interviewers[interviewId];
-    //console.log("STATE", interviewerInfo)
-    interview.interviewer = interviewerInfo;
-    return interview;
-  } 
+
+    newInterview["interviewer"] = interviewerInfo;
+    newInterview["student"] = interview.student;
+    return newInterview;
+  }
   return null;
-  
-};
+}
