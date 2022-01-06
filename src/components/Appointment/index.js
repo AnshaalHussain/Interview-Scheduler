@@ -57,7 +57,7 @@ export default function Appointment(props) {
         console.log(err);
       });
   }
-  console.log("MODE", mode)
+  
   return (
     <article className="appointment">
       <Header time={props.time} />
