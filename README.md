@@ -1,6 +1,6 @@
 Interview Scheduler
 
-https://img.shields.io/github/last-commit/AnshaalHussain/Interview-Scheduler
+![GitHub last commit](https://img.shields.io/github/last-commit/AnshaalHussain/Interview-Scheduler)
 
 One of my proudest projects coming out of Lighthouse Labs! It was while building this application that I grasped React concepts I was learning such as state management with the useState hook, passing props, data fetching with axios and useEffect ...and much more.
 
