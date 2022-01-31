@@ -12,6 +12,6 @@ To reset database
 http://localhost:8001/api/debug/reset
 ```
 
-<video width="320" height="240" controls>
+<video width="500" height="500" controls>
   <source src="Interview_Scheduler_Demo.mov" type="video/mp4">
 </video>
