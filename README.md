@@ -1,10 +1,6 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/AnshaalHussain/Interview-Scheduler)
 
-[![GitHub issues](https://img.shields.io/github/issues/AnshaalHussain/Interview-Scheduler)](https://github.com/AnshaalHussain/Interview-Scheduler/issues)
-
-[![GitHub stars](https://img.shields.io/github/stars/AnshaalHussain/Interview-Scheduler)](https://github.com/AnshaalHussain/Interview-Scheduler/stargazers)
-
 Interview Scheduler
 
 
