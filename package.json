@@ -2,7 +2,7 @@
   "name": "scheduler",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anshaalhussain.github.io/Scheduler-oct25/",
+  "homepage": "https://anshaalhussain.github.io",
   "proxy": "http://localhost:8001",
   "dependencies": {
     "-": "^0.0.1",
