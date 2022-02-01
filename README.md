@@ -3,15 +3,14 @@
 
 Interview Scheduler
 
-
-One of my proudest projects coming out of Lighthouse Labs! It was while building this application that I grasped React concepts I was learning such as state management with the useState hook, passing props, data fetching with axios and useEffect ...and much more.
-
-
 The purpose of Interview Scheduler is to allow users to book appointments with a chosen day, time, and interviewer. When creating, editing or deleting appointments, and the app will dynamically update and display the number of spots left in a day.
+
+<img src="scheduler_desktopview.png">
 
 To run application
 
 ```bash
+npm install
 npm run start
 ```
 
@@ -25,3 +24,7 @@ Demo
 <video width="900" height="500" controls>
   <source src="Interview_Scheduler_Demo.mov" type="video/mp4">
 </video>
+
+
+Mobile View
+<img src="scheduler_mobileview.png">
