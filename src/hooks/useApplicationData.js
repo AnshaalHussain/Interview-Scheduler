@@ -57,7 +57,6 @@ export default function useApplicationData() {
       .then((response) => {
         calculateSpots(true);
         setState((prev) => ({ ...prev, appointments }));
-        
       });
   }
 
@@ -79,7 +78,6 @@ export default function useApplicationData() {
       .then((response) => {
         calculateSpots(false, true);
         setState((prev) => ({ ...prev, appointments }));
-        
       });
   };
 

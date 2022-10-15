@@ -1,6 +1,9 @@
 {
   "name": "scheduler",
   "version": "0.1.0",
+  "engines": {
+    "node": "18.x"
+  },
   "private": true,
   "homepage": "https://anshaalhussain.github.io/Scheduler-oct25/",
   "proxy": "http://localhost:8001",
